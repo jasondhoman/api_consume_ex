@@ -6,17 +6,21 @@ const fetch = require('node-fetch');
 
 //middleware
 app.use(cors());
-app.use(express.json()); //req.body
+app.use(express.json()); 
 
 
-app.get('/launches', async( ) => {
+app.get('/launches', async(req,res) => {
     try {
-        const response = await fetch('https://api.spacexdata.com/v4/launches');
-        const data = await response.json();
-        return data;
+        const launches = await fetch('https://api.spacexdata.com/v4/launches');
+        const data = await launches.json();
+        res.json(data);
     } catch (error) {
         console.error(error);
     }
+});
+
+app.get('/', (req,res) => {
+    res.status(403).send('You seem to have taken a wrong turn')
 });
 
 app.listen(PORT, () => {

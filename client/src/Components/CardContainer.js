@@ -12,7 +12,11 @@ const CardContainer = () => {
 
   const getLaunches = async () => {
     try {
-      const response = await fetch("http://localhost:5000/launches");
+      console.log("hey")
+      const response = await fetch('http://localhost:5000/launches', {
+        headers: { "Content-Type": "application/json" },
+      });
+      
       const data = await response.json();
       setLaunches(data.slice(0, 3));
       console.log("data", data);
